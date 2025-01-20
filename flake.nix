@@ -31,6 +31,7 @@
           eza
           fzf
           git
+          mas
           ripgrep
           starship
           stow
@@ -50,8 +51,8 @@
 
       homebrew = {
         enable = true;
-        
-        # GUIs
+
+        # Homebrew GUIs 
         casks = [
           "alacritty"
           "balenaetcher"
@@ -67,6 +68,12 @@
 
           "font-jetbrains-mono-nerd-font"
         ];
+
+        # Mac App Store (mas)
+        masApps = {
+          "DaisyDisk" = 411643860;
+          "Amazon Prime Video" = 545519333;
+        };
         
         # all brew installs outside of nix will be removed / "zapped"
         onActivation.cleanup = "zap";
