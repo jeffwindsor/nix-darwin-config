@@ -28,6 +28,8 @@
 
           # CLIs
           bat
+          direnv
+          nix-direnv
           eza
           fzf
           git
