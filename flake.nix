@@ -5,17 +5,73 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    mac-app-util.url = "github:hraban/mac-app-util";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, mac-app-util, nix-homebrew }:
   let
-    configuration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
+    configuration = { pkgs, config, ... }: {
+
+      nixpkgs.config.allowUnFree = true;      
+      
+      # Packages installed in system profile (for all users)
+      environment.systemPackages = with pkgs;
         [
-          pkgs.vim
+          # GUIs
+          aerospace        # i3 like tiling
+          alacritty        # terminal
+          
+          # Shells
+          bash
+          nushell
+          zsh
+
+          # CLIs
+          bat
+          eza
+          fzf
+          git
+          ripgrep
+          starship
+          stow
+
+          # TUIs
+          helix
+          lazygit
+          yazi
+
+          # language servers for EDITOR
+          bash-language-server
+          shellcheck
+          shfmt
+          yaml-language-server
+
+          # fonts
+          # nerd-fonts.jetbrains-mono
         ];
+
+      homebrew = {
+        enable = true;
+        
+        casks = [
+          "balenaetcher"
+          "chatgpt"
+          "firefox"
+          "font-jetbrains-mono-nerd-font"
+          "google-chrome"
+          "iina"
+          "keepingyouawake"
+          "pearcleaner"
+          "slack"
+          "spotify"
+          "sweet-home3d"
+        ];
+        
+        # all brew installs outside of nix will be removed / "zapped"
+        onActivation.cleanup = "zap";
+    
+      };
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
@@ -37,8 +93,29 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."midnight" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
+    darwinConfigurations."Midnight-Air" = nix-darwin.lib.darwinSystem {
+      modules = [
+        configuration
+        # handles spotlight and dock aliasing of applications
+        mac-app-util.darwinModules.default
+        # handles installing homebrew and mas(applestore)
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            # Install Homebrew under the default prefix
+            enable = true;
+
+            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+            enableRosetta = true;
+
+            # User owning the Homebrew prefix
+            user = "jeffwindsor";
+
+            # Automatically migrate existing Homebrew installations
+            autoMigrate = true;
+          };
+        }
+       ];
     };
   };
 }
