@@ -76,25 +76,58 @@
         };
         
         # all brew installs outside of nix will be removed / "zapped"
-        onActivation.cleanup = "zap";
-    
+        onActivation = {
+          cleanup = "zap";
+          autoUpdate = true;
+          upgrade = true;
+        };
       };
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
+      
+      # The platform the configuration will be used on.
+      nixpkgs.hostPlatform = "aarch64-darwin";
 
       # Enable alternative shell support in nix-darwin.
       programs.zsh.enable = true;
 
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
+      system = {
+        # Set Git commit hash for darwin-version.
+        configurationRevision = self.rev or self.dirtyRev or null;
 
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 5;
+        # MacOs settings
+        defaults = {
+          dock = {
+            autohide = true;
+            # remove delay for showing dock
+            autohide-delay = 0.0;
+            largesize = 128;
+            launchanim = false;            # Animate Opening Applications
+            magnification = true;
+            orientation = "right";
+            show-recents = false;
+          };
+          
+          finder = {
+            AppleShowAllExtensions = true;
+            AppleShowAllFiles = true;
+            FXDefaultSearchScope = "SCcf";      # Search Targets Current Folder
+            ShowPathbar = true;
+            _FXShowPosixPathInTitle = true;
+            _FXSortFoldersFirstOnDesktop = true;
+          };
 
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+          loginwindow.GuestEnabled = false;
+
+          NSGlobalDomain.AppleInterfaceStyle = "Dark";
+        };
+        
+        # Used for backwards compatibility, please read the changelog before changing.
+        # $ darwin-rebuild changelog
+        stateVersion = 5;
+      };
+
     };
   in
   {
