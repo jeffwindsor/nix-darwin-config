@@ -19,8 +19,7 @@
       environment.systemPackages = with pkgs;
         [
           # GUIs
-          aerospace        # i3 like tiling
-          alacritty        # terminal
+          aerospace
           
           # Shells
           bash
@@ -47,18 +46,17 @@
           shfmt
           yaml-language-server
 
-          # fonts
-          # nerd-fonts.jetbrains-mono
         ];
 
       homebrew = {
         enable = true;
         
+        # GUIs
         casks = [
+          "alacritty"
           "balenaetcher"
           "chatgpt"
           "firefox"
-          "font-jetbrains-mono-nerd-font"
           "google-chrome"
           "iina"
           "keepingyouawake"
@@ -66,6 +64,8 @@
           "slack"
           "spotify"
           "sweet-home3d"
+
+          "font-jetbrains-mono-nerd-font"
         ];
         
         # all brew installs outside of nix will be removed / "zapped"
