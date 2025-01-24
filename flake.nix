@@ -28,9 +28,8 @@
 
           # CLIs
           bat
-          direnv
-          nix-direnv
           eza
+          fd
           fzf
           git
           mas
@@ -44,10 +43,14 @@
           yazi
 
           # language servers for EDITOR
+          # SHELL
           bash-language-server
           shellcheck
           shfmt
-          yaml-language-server
+          # YAML
+          #yaml-language-server
+          # TOML
+          taplo
 
         ];
 
