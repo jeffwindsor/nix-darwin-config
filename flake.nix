@@ -25,12 +25,15 @@
 
   outputs = inputs:
   let
+    # shorten for config usage
     ds = inputs.nix-darwin.lib.darwinSystem;
     ns = inputs.lib.nixosSystem;
     mac-app = inputs.mac-app-util.darwinModules.default;
-    
-    brew = inputs.nix-homebrew.darwinModules.nix-homebrew;
-    brew_attributes = user: {
+    homebrew = inputs.nix-homebrew.darwinModules.nix-homebrew;
+
+    # function, returns nix-homebrew attributes for a `user`
+    # function structure: func_name = arg1: arg2: { attribute set to return }
+    for_user = user: {
       nix-homebrew = {
         user = user;
         enable = true;
@@ -51,7 +54,7 @@
       modules = [
         ./machine/framework13.nix
         ./desktop/gnome.nix
-        ./packages/default.nix
+        ./packages                  # minimum viable set of packages
       ];
     };
 
@@ -60,10 +63,9 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        ./packages {
-          bundles.personal.enable = true;
-        }
-        brew (brew_attributes "jeffwindsor")
+        ./packages                  # minimum viable set of packages
+        { bundles.personal = true; }  # extra packages via options. this is an attribute just like other imports, just done in-line 
+        homebrew (for_user "jeffwindsor")
         mac-app
       ];
     };
@@ -73,11 +75,9 @@
       modules = [
         ./machine/macbook_m.nix 
         ./desktop/aqua.nix 
-        ./packages {
-          bundles.cj.enable = true;
-          packages.google-chrome = true;
-        }
-        brew (brew_attributes "jefwinds")
+        ./packages                  # minimum viable set of packages
+        { bundles.cj = true; }
+        homebrew (for_user "jefwinds")
         mac-app
       ];
     };

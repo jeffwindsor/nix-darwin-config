@@ -2,9 +2,12 @@
 
   # mkEnableOption is mkOption of bool, defaulted to false
   #   https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix?plain=1#L182
-  options.bundles.cj.enable = lib.mkEnableOption "CJ Bundle";
+  options.bundles.cj = lib.mkEnableOption "CJ Bundle";
 
-  config = lib.mkIf config.bundles.cj.enable {
+  config = lib.mkIf config.bundles.cj {
+    
+    packages.google-chrome = true;
+  
     environment.systemPackages = with pkgs;[
       maven
       jetbrains.idea-ultimate

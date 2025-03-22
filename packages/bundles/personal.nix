@@ -1,11 +1,12 @@
 { config, lib, pkgs, ... }:{
-
   # mkEnableOption is mkOption of bool, defaulted to false
   #   https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix?plain=1#L182
-  options.bundles.personal.enable = lib.mkEnableOption "Personal Use Bundle";
+  options.bundles.personal = lib.mkEnableOption "Personal Use Bundle";
 
-  config = lib.mkIf config.bundles.personal.enable {
+  config = lib.mkIf config.bundles.personal {
 
+    packages.nushell = true;
+    
     environment.systemPackages = with pkgs;[
       iina  # Modern media player for macOS
       chatgpt

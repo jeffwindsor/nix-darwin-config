@@ -1,10 +1,23 @@
-## Helpful Commands
+# NixOs and Darwin Config
+
+## Notes
+
+* I have tried to follow the standard nix package approach to modules.
+  * `Default.nix` files are built to import `nix` files in the directory
+  * Other `nix` files will set a config enable option
+  * Bundles are just groups of packages for a purpose
+  * This approach sacrifices terseness for flexibilty
+  * Relies on config options to enable software
+* Importing a directory imports the `directory/default.nix`
+* macOS is the darwin kernel with the aqua desktop
+
+## Commands
 
 ```bash
-export NIXCONFIG='/your/path/to/flake
+export NIXCONFIG="/path/to/flake"
 ```
 
-### macOS (darwin)
+### macOS
 
 ```bash
 alias clean="nix store gc"
