@@ -7,10 +7,11 @@
   ];
 
   homebrew.casks = [
+    "monitorcontrol"   # control ext monitor with mac keyboard
     "jordanbaird-ice"  # bar icon manager
     "keepingyouawake"  # like caffiene
-    "zen-browser"      # browser
-    "ghostty"          # currently broken package 2025-03-17
+    "zen-browser"      # browser not in nix package store as of 2025-03-21
+    "ghostty"          # currently broken package in nix as of 2025-03-17
   ];
 
   # ===========================================================================
