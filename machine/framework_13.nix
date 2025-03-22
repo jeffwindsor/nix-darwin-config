@@ -1,8 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, username, userDescription, ... }:
+{ config, pkgs, ... }:
 let 
   hostname        = "framework";
   keyboard_layout = "us";
@@ -38,23 +34,19 @@ in {
     boot = {
       loader = {
         systemd-boot = {
-          enable = true;                           # EFI boot manager
-          configurationLimit = 10;                 # limit to 10 generations
+          enable = true;  # EFI boot manager
+          configurationLimit = 10;   # limit to 10 generations
         };
-        efi.canTouchEfiVariables = true;           # installation can modify EFI boot variables
+        efi.canTouchEfiVariables = true;  # installation can modify EFI boot variables
       };
-      supportedFilesystems = [ "ntfs" ];           # USB Drives might have this format 
+      supportedFilesystems = [ "ntfs" ];  # USB Drives might have this format 
     };
 
-    # Packages available to all users
     environment.systemPackages = with pkgs; [
-      alacritty
-      ghostty
-
-      cups-brother-hll2350dw                          # home and office printer (2023)
-      fwupd                                           # firmware update service
+      cups-brother-hll2350dw  # home and office printer (2023)
+      fwupd  # firmware update service
       pciutils
-      tlp                                             # laptop power mgmt service
+      tlp  # laptop power mgmt service
     ];
     # 
     # Internationalization
