@@ -7,7 +7,6 @@
   ];
 
   homebrew.casks = [
-    "monitorcontrol"   # control ext monitor with mac keyboard
     "jordanbaird-ice"  # bar icon manager
     "keepingyouawake"  # like caffiene
     "zen-browser"      # browser not in nix package store as of 2025-03-21
