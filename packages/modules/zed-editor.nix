@@ -5,6 +5,10 @@
   options.packages.zed-editor = lib.mkEnableOption "zed-editor";
 
   config = lib.mkIf config.packages.zed-editor {
-    environment.systemPackages = with pkgs; [ zed-editor ];
+    # environment.systemPackages = with pkgs; [ zed-editor ];
+    homebrew = lib.mkIf (pkgs.stdenv.hostPlatform == "aarch64-darwin") {
+      casks = [ "zed" ];
+    };
+
   };
 }
