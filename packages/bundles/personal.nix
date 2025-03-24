@@ -16,12 +16,14 @@
       # transmission
     ];
 
-    homebrew.casks = [ "balenaetcher" ];
+    homebrew = lib.mkIf (pkgs.stdenv.hostPlatform == "aarch64-darwin") {
+      casks = [ "balenaetcher" ];
   
-    homebrew.masApps = {
-      "DaisyDisk" = 411643860;
-      "Amazon Prime Video" = 545519333;
+      masApps = {
+        "DaisyDisk" = 411643860;
+        "Amazon Prime Video" = 545519333;
+      };
+      
     };
-    
   };
 }
