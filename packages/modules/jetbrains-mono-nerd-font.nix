@@ -6,7 +6,10 @@
   options.packages.jetbrains-mono-nerd-font = lib.mkEnableOption "font nerd.fonts.jetbrains-mono";
 
   config = lib.mkIf config.packages.jetbrains-mono-nerd-font {
-    fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+    fonts.packages = with pkgs; [
+        nerd-fonts.jetbrains-mono
+        atkinson-monolegible
+    ];
   };
 }
 
