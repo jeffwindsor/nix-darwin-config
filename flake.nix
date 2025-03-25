@@ -14,8 +14,8 @@
     mac-app-util.url = "github:hraban/mac-app-util";
 
     # Installs Homebrew on macOS using nix-darwin, so it can be used in the terminal and provide packages in this flake
-    # nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    nix-homebrew.url = "git+https://github.com/zhaofengli/nix-homebrew?ref=refs/pull/71/merge"; # temp fix for homebrew bundle deprication (Mar 2025)
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    # nix-homebrew.url = "git+https://github.com/zhaofengli/nix-homebrew?ref=refs/pull/71/merge"; # temp fix for homebrew bundle deprication (Mar 2025)
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
     homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
     homebrew-bundle = { url = "github:homebrew/homebrew-bundle"; flake = false; };
@@ -53,6 +53,7 @@
       modules = [
         ./machine/framework13.nix
         ./desktop/gnome.nix
+        ./profile/personal.nix
         ./packages # minimum viable set of packages
       ];
     };
@@ -62,7 +63,8 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        ./packages { bundles.personal = true; }
+        ./profile/personal.nix
+        ./packages # minimum viable set of packages
         homebrew (for_user "jeffwindsor")
         mac-app
       ];
@@ -72,8 +74,9 @@
     darwinConfigurations."WKMZTAFD6544" = ds {
       modules = [
         ./machine/macbook_m.nix 
-        ./desktop/aqua.nix 
-        ./packages { bundles.cj = true; }
+        ./desktop/aqua.nix
+        ./profile/cj.nix
+        ./packages  # minimum viable set of packages
         homebrew (for_user "jefwinds")
         mac-app
       ];

@@ -3,21 +3,27 @@
 
   # the idea here is to import all the nix file content and then only enable what you need
   imports = [
-    ./modules
-    ./bundles
+    ./firefox.nix
+    ./git.nix
+    ./google-chrome.nix
+    ./helix.nix
+    ./modern-cli-tools.nix
+    ./nushell.nix
+    ./television.nix
+    ./zed-editor.nix
+    ./zsh.nix
   ];
 
   # My Minimum Viable Setup
   config = {
-
-    bundles.modern-cli-tools.enable = true;
 
     packages = {
       firefox.enable = true;
       google-chrome.enable = true;
 
       git.enable = true;
-      
+      modern-cli-tools.enable = true;      
+
       helix.enable = true;
       zed-editor.enable = true;
       
