@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let 
   hostname        = "framework";
   keyboard_layout = "us";
