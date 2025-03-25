@@ -32,6 +32,8 @@
       AppleShowAllExtensions = true;
       AppleShowAllFiles = true;
       FXDefaultSearchScope = "SCcf";  # search targets current folder
+      FXEnableExtensionChangeWarning = false; # disable warning when changing file extension
+      QuitMenuItem = true; # enable quit menu item
       ShowPathbar = true;
       _FXShowPosixPathInTitle = true;
       _FXSortFoldersFirstOnDesktop = true;
