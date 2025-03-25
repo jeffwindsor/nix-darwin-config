@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:{
   # mkEnableOption is mkOption of bool, defaulted to false
   #   https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix?plain=1#L182
-  options.packages.television = lib.mkEnableOption "television";
+  options.packages.television.enable = lib.mkEnableOption "television";
 
-  config = lib.mkIf config.packages.television {
+  config = lib.mkIf config.packages.television.enable {
     environment.systemPackages = with pkgs; [
       television
       nix-search-tv

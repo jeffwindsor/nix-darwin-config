@@ -1,20 +1,19 @@
 {
-  description = "jeff.windsor";
+  description = "❄ jeff.windsor's nix flake ❄";
 
+  # Define the inputs to the flake "function"
   inputs = {
-    # Nix Modules: General: https://nixos.org/manual/nixpkgs/unstable/#sec-config-options-reference
+    # Nix Modules: General: man-page: https://nixos.org/manual/nixpkgs/unstable/#sec-config-options-reference
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     
-    # Nix Modules: MacOs : https://daiderd.com/nix-darwin/manual/index.html
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Nix Modules: MacOs: man-page: https://daiderd.com/nix-darwin/manual/index.html
+    #   pin to nix packages version
+    nix-darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
 
-    # exposes gui apps to spotlight and the dock
+    # Exposes gui apps to spotlight and the dock by creating a folder in applications it maintains
     mac-app-util.url = "github:hraban/mac-app-util";
 
-    # manages Homebrew installations on macOS using nix-darwin
+    # Installs Homebrew on macOS using nix-darwin, so it can be used in the terminal and provide packages in this flake
     # nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     nix-homebrew.url = "git+https://github.com/zhaofengli/nix-homebrew?ref=refs/pull/71/merge"; # temp fix for homebrew bundle deprication (Mar 2025)
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
@@ -23,16 +22,16 @@
     
   };
 
+  # Define the results returned from the flake "function"
   outputs = inputs:
   let
-    # shorten for config usage
+    # variables for brevity
     ds = inputs.nix-darwin.lib.darwinSystem;
     ns = inputs.lib.nixosSystem;
     mac-app = inputs.mac-app-util.darwinModules.default;
     homebrew = inputs.nix-homebrew.darwinModules.nix-homebrew;
 
-    # function, returns nix-homebrew attributes for a `user`
-    # function structure: func_name = arg1: arg2: { attribute set to return }
+    # function: returns attributes for a user
     for_user = user: {
       nix-homebrew = {
         user = user;
@@ -54,7 +53,7 @@
       modules = [
         ./machine/framework13.nix
         ./desktop/gnome.nix
-        ./packages                  # minimum viable set of packages
+        ./packages # minimum viable set of packages
       ];
     };
 
@@ -63,8 +62,7 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        ./packages                  # minimum viable set of packages
-        { bundles.personal = true; }  # extra packages via options. this is an attribute just like other imports, just done in-line 
+        ./packages { bundles.personal = true; }
         homebrew (for_user "jeffwindsor")
         mac-app
       ];
@@ -75,8 +73,7 @@
       modules = [
         ./machine/macbook_m.nix 
         ./desktop/aqua.nix 
-        ./packages                  # minimum viable set of packages
-        { bundles.cj = true; }
+        ./packages { bundles.cj = true; }
         homebrew (for_user "jefwinds")
         mac-app
       ];
