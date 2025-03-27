@@ -34,7 +34,7 @@
     # fonts (not converted to separate nix files for now)
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
-      atkinson-monolegible
+      atkinson-hyperlegible-mono
     ];
   };
 
