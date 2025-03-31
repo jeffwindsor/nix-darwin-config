@@ -31,6 +31,11 @@
       zsh.enable = true;
     };
 
+    # not yet enable-afied
+    environment.systemPackages = with pkgs; [
+      megasync
+    ];
+    
     # fonts (not converted to separate nix files for now)
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
