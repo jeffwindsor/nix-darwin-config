@@ -8,6 +8,7 @@
     ./google-chrome.nix
     ./helix.nix
     ./modern-cli-tools.nix
+    ./network-utils.nix 
     ./nushell.nix
     ./television.nix
     ./zed-editor.nix
@@ -22,6 +23,7 @@
       google-chrome.enable = true;
 
       git.enable = true;
+      network-utils.enable = true;
       modern-cli-tools.enable = true;      
 
       helix.enable = true;
