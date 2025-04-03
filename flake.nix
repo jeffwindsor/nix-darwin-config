@@ -7,7 +7,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     
     # Nix Modules: MacOs: man-page: https://daiderd.com/nix-darwin/manual/index.html
-    #   pin to nix packages version
     nix-darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Exposes gui apps to spotlight and the dock by creating a folder in applications it maintains
@@ -15,10 +14,8 @@
 
     # Installs Homebrew on macOS using nix-darwin, so it can be used in the terminal and provide packages in this flake
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    # nix-homebrew.url = "git+https://github.com/zhaofengli/nix-homebrew?ref=refs/pull/71/merge"; # temp fix for homebrew bundle deprication (Mar 2025)
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
     homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
-    homebrew-bundle = { url = "github:homebrew/homebrew-bundle"; flake = false; };
     
   };
 
@@ -37,12 +34,6 @@
         user = user;
         enable = true;
         enableRosetta = true;
-        # taps = {
-        #   "homebrew/homebrew-core" = inputs.homebrew-core;
-        #   "homebrew/homebrew-cask" = inputs.homebrew-cask;
-        #   "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-        # };
-        # mutableTaps = false;
       };
     };
 
