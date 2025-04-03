@@ -11,7 +11,6 @@
     ./network-utils.nix 
     ./nushell.nix
     ./television.nix
-    ./zed-editor.nix
     ./zsh.nix
   ];
 
@@ -27,7 +26,6 @@
       modern-cli-tools.enable = true;      
 
       helix.enable = true;
-      zed-editor.enable = true;
       
       nushell.enable = true;
       zsh.enable = true;
