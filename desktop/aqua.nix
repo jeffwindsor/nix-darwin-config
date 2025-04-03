@@ -6,12 +6,6 @@
     mas            # apple store cli
   ];
 
-  homebrew.casks = [
-    "jordanbaird-ice"  # bar icon manager
-    "keepingyouawake"  # like caffiene
-    "zen-browser"      # browser not in nix package store as of 2025-03-21
-    "ghostty"          # currently broken package in nix as of 2025-03-17
-  ];
 
   # ===========================================================================
   # nix darwin macos options: https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults._.GlobalPreferences_._com.apple.mouse.scaling_
