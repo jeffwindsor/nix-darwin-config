@@ -3,6 +3,7 @@
 
   # the idea here is to import all the nix file content and then only enable what you need
   imports = [
+    ./direnv.nix
     ./firefox.nix
     ./git.nix
     ./google-chrome.nix
@@ -22,13 +23,12 @@
       google-chrome.enable = true;
 
       git.enable = true;
-      network-utils.enable = true;
       modern-cli-tools.enable = true;      
-
       helix.enable = true;
       
-      nushell.enable = true;
+      # nushell.enable = true;
       zsh.enable = true;
+      # direnv.enable = true;
     };
 
     # fonts (not converted to separate nix files for now)
