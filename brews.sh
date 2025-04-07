@@ -19,14 +19,16 @@ brew $brew_command --cask keepingyouawake
 brew $brew_command --cask zed
 brew $brew_command --cask zen-browser
 
-if [[ $(hostname) == "Midnight-Air.local" ]]; then
+machine=$(networksetup -getcomputername)
+
+if [[ $machine == "Midnight-Air" ]]; then
   brew $brew_command --cask chatgpt
   brew $brew_command --cask iina
   brew $brew_command --cask spotify
   # brew $brew_command --cask sweet-home3d
-fi
 
-
-if [[ $(hostname) == "work" ]]; then
+elif [[ $machine == "WKMZTAFD6544" ]]; then
   brew $brew_command --cask intellij-idea
+  brew $brew_command --cask slack
+  
 fi
