@@ -10,7 +10,7 @@
     nix-darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # Exposes gui apps to spotlight and the dock by creating a folder in applications it maintains
-    mac-app-util.url = "github:hraban/mac-app-util";
+    # mac-app-util.url = "github:hraban/mac-app-util";
 
   };
 
@@ -21,7 +21,7 @@
     # variables for brevity
     ds = inputs.nix-darwin.lib.darwinSystem;
     ns = inputs.lib.nixosSystem;
-    mac-app = inputs.mac-app-util.darwinModules.default;
+    # mac-app = inputs.mac-app-util.darwinModules.default;
 
   in
   {
@@ -30,7 +30,7 @@
       modules = [
         ./machine/framework13.nix
         ./desktop/gnome.nix
-        ./profile/personal.nix
+        # ./profile/personal.nix
         ./packages # minimum viable set of packages
       ];
     };
@@ -40,9 +40,9 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        ./profile/personal.nix
+        # ./profile/personal.nix
         ./packages # minimum viable set of packages
-        mac-app
+        # mac-app
       ];
     };
 
@@ -51,9 +51,9 @@
       modules = [
         ./machine/macbook_m.nix 
         ./desktop/aqua.nix
-        ./profile/cj.nix
+        # ./profile/cj.nix
         ./packages  # minimum viable set of packages
-        mac-app
+        # mac-app
       ];
     };
     

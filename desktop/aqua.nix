@@ -1,12 +1,6 @@
 # Aqua is the macOS desktop
 { pkgs, config, ... }:{
 
-  environment.systemPackages = with pkgs; [
-    aerospace      # tiling, workspaces, and launcher
-    mas            # apple store cli
-  ];
-
-
   # ===========================================================================
   # nix darwin macos options: https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults._.GlobalPreferences_._com.apple.mouse.scaling_
   # ===========================================================================

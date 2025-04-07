@@ -19,8 +19,8 @@
   config = {
 
     packages = {
-      firefox.enable = true;
-      google-chrome.enable = true;
+      # firefox.enable = true;
+      # google-chrome.enable = true;
 
       git.enable = true;
       modern-cli-tools.enable = true;      
