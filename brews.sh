@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 brew_command="${1:-install}"  # reinstall, info, etc..
+function cask-install(){
+  echo -e "\e[94m==> Brew Install $1 <==\e[0m"
+  brew $brew_command --cask "$1"
+}
 
 # install brew if missing
 if ! command -v brew &> /dev/null; then
@@ -8,27 +12,29 @@ if ! command -v brew &> /dev/null; then
 fi
 
 # Standard GUI Apps
-brew $brew_command --cask nikitabobko/tap/aerospace  #i3 like tiling
-brew $brew_command --cask balenaetcher     # usb iso app 
-brew $brew_command --cask chatgpt
-brew $brew_command --cask firefox
-brew $brew_command --cask ghostty
-brew $brew_command --cask google-chrome
-brew $brew_command --cask jordanbaird-ice  # bar icon manager
-brew $brew_command --cask keepingyouawake
-brew $brew_command --cask zed
-brew $brew_command --cask zen-browser
+CASKS=(
+  balenaetcher     # usb iso app 
+  chatgpt
+  firefox
+  ghostty
+  google-chrome
+  jordanbaird-ice  # bar icon manager
+  keepingyouawake
+  nikitabobko/tap/aerospace  #i3 like tiling
+  sweet-home3d
+  zed
+  zen-browser
+)
 
+# machine specific packages
 machine=$(networksetup -getcomputername)
-
 if [[ $machine == "Midnight-Air" ]]; then
-  brew $brew_command --cask chatgpt
-  brew $brew_command --cask iina
-  brew $brew_command --cask spotify
-  # brew $brew_command --cask sweet-home3d
-
+  CASKS += ( chatgpt iina spotify sweet-home3d )
 elif [[ $machine == "WKMZTAFD6544" ]]; then
-  brew $brew_command --cask intellij-idea
-  brew $brew_command --cask slack
-  
+  CASKS += ( intellij-idea slack )
 fi
+
+# install casks
+for c in "${CASKS[@]}"; do
+  cask-install "$c" 
+done
