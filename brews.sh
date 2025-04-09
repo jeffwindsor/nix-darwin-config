@@ -21,20 +21,18 @@ CASKS=(
   jordanbaird-ice  # bar icon manager
   keepingyouawake
   nikitabobko/tap/aerospace  #i3 like tiling
-  sweet-home3d
   zed
   zen-browser
 )
 
-# machine specific packages
+# add machine specific packages
 machine=$(networksetup -getcomputername)
-if [[ $machine == "Midnight-Air" ]]; then
-  CASKS += ( chatgpt iina spotify sweet-home3d )
-elif [[ $machine == "WKMZTAFD6544" ]]; then
-  CASKS += ( intellij-idea slack )
-fi
+[[ $machine == "Midnight-Air" ]] && CASKS=("${CASKS[@]}" chatgpt iina spotify sweet-home3d )
+[[ $machine == "WKMZTAFD6544" ]] && CASKS=("${CASKS[@]}" intellij-idea slack )
+
 
 # install casks
+# echo "\e[94m $machine ==> ${CASKS[@]} \e[0m"
 for c in "${CASKS[@]}"; do
   cask-install "$c" 
 done
