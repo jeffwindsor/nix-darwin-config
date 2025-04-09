@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:{
-  
 
   options.packages.modern-cli-tools.enable = lib.mkEnableOption "modern-cli-tools";
 
@@ -12,8 +11,8 @@
       fzf  # fuzzy finder
       ripgrep  #grep replacement
       sd  # sed replacement
-      starship # prompt
-      uutils-coreutils-noprefix # rust replacement for GNU tools
+      starship  # prompt
+      # uutils-coreutils-noprefix # rust replacement for GNU tools
       yazi  # tui file manager
     ];
     
