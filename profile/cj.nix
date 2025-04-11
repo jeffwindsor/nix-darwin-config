@@ -2,8 +2,6 @@
 
   environment.systemPackages = with pkgs;[
     maven
-    jetbrains.idea-ultimate
-    slack
   ];
 
   # https://github.com/NixOS/nix/issues/8081

@@ -9,29 +9,41 @@
     # Nix Modules: MacOs: man-page: https://daiderd.com/nix-darwin/manual/index.html
     nix-darwin = { url = "github:LnL7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; };
 
-    # Exposes gui apps to spotlight and the dock by creating a folder in applications it maintains
-    # mac-app-util.url = "github:hraban/mac-app-util";
-
   };
 
   # Define the results returned from the flake "function"
   outputs = inputs:
   let
-    
-    # variables for brevity
     ds = inputs.nix-darwin.lib.darwinSystem;
     ns = inputs.lib.nixosSystem;
-    # mac-app = inputs.mac-app-util.darwinModules.default;
-
   in
   {
     # personal linux laptop
     nixosConfigurations."framework" = ns {
+      # Work in Progress
       modules = [
         ./machine/framework13.nix
         ./desktop/gnome.nix
-        # ./profile/personal.nix
-        ./packages # minimum viable set of packages
+        ./packages
+        {
+          config.packages = {
+            # guis
+            chatgpt.enable = true;
+            firefox.enable = true;
+            google-chrome.enable = true;
+            spotify.enable = true;
+            zed-editor.enable = true;
+            # clis / tuis
+            git.enable = true;
+            helix.enable = true;
+            modern-cli-tools.enable = true;      
+            mono-fonts.enable = true;
+            network-utils.enable = true;
+            nushell.enable = true;
+            zsh.enable = true;
+          };
+        }
+        
       ];
     };
 
@@ -40,9 +52,19 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        # ./profile/personal.nix
-        ./packages # minimum viable set of packages
-        # mac-app
+        ./packages
+        {
+          config.packages = {
+            # guis with brew
+            # clis and tuis
+            git.enable = true;
+            helix.enable = true;
+            modern-cli-tools.enable = true;      
+            mono-fonts.enable = true;
+            nushell.enable = true;
+            zsh.enable = true;
+          };
+        }
       ];
     };
 
@@ -51,9 +73,19 @@
       modules = [
         ./machine/macbook_m.nix 
         ./desktop/aqua.nix
-        # ./profile/cj.nix
-        ./packages  # minimum viable set of packages
-        # mac-app
+        ./packages
+        {
+          config.packages = {
+            # guis with brew
+            # clis and tuis
+            git.enable = true;
+            helix.enable = true;
+            maven.enable = true;
+            modern-cli-tools.enable = true;
+            mono-fonts.enable = true;
+            zsh.enable = true;
+          };
+        }
       ];
     };
     
