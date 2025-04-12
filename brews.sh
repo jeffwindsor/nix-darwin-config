@@ -48,13 +48,14 @@ if [[ $machine == "Midnight-Air" ]]; then
     chatgpt
     iina
     spotify
-    sweet-home3d
+    # sweet-home3d
   )
 fi
 
 [[ $machine == "WKMZTAFD6544" ]]; thenCASKS=(
   "${CASKS[@]}"
   intellij-idea
+  maven
   slack
 )
 
