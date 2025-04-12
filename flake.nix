@@ -29,7 +29,6 @@
           config.packages = {
             # guis
             chatgpt.enable = true;
-            devenv.enable = true;
             firefox.enable = true;
             google-chrome.enable = true;
             nyxt.enable = true;
@@ -54,12 +53,6 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        ./packages
-        {
-          config.packages = {
-            devenv.enable = true;
-          };
-        }
       ];
     };
 
@@ -68,12 +61,6 @@
       modules = [
         ./machine/macbook_m.nix 
         ./desktop/aqua.nix
-        ./packages
-        {
-          config.packages = {
-            devenv.enable = true;
-          };
-        }
       ];
     };
     
