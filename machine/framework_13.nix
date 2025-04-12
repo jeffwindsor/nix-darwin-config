@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let 
-  hostname        = "framework";
+  hostname        = "frame";
   keyboard_layout = "us";
   locale          = "en_US.UTF-8";
   timezone        = "America/Los_Angeles";

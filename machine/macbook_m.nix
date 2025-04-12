@@ -12,9 +12,9 @@
   # ===========================================================================
   
   # sudo via finger print scan
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.enableSudoTouchIdAuth = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
-  system.stateVersion = 6;
+  system.stateVersion = 5;
   
 }
