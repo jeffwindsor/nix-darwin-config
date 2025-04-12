@@ -2,6 +2,6 @@
   options.packages.ghostty.enable = lib.mkEnableOption "ghostty";
 
   config = lib.mkIf config.packages.ghostty.enable {
-    environment.shells = with pkgs; [ ghostty ];
+    environment.systemPackages = with pkgs; [ ghostty ];
   };
 }
