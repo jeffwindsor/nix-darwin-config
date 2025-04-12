@@ -1,15 +1,10 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    utils.url = "github:numtide/flake-utils";
-  };
-
-  outputs = { nixpkgs, utils, ... }: utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      devShell = pkgs.mkShell {
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+  outputs = { nixpkgs, ... }:
+  let
+    pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+  in {
+    devShell.aarch64-darwin = pkgs.mkShell {
       	name = "ollama";
         packages = with pkgs; [
           ollama
@@ -34,5 +29,5 @@
         '';
       };
     }
-  );
+  ;
 }

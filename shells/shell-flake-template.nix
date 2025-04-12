@@ -1,32 +1,17 @@
 {
-  inputs = {
-    # packages
-    nixpkgs.url = "github:NixOS/nixpkgs/{package_version}";
-    # helper functions
-    utils.url = "github:numtide/flake-utils";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+  outputs = { nixpkgs, ... }:
+  let
+    pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+  in {
+    devShell.aarch64-darwin = pkgs.mkShell {
+    	name = "{shell_name}";
+      packages = with pkgs; [ ];
+      shellHook = ''
+        echo -e "\e[1;94m == {shell_name} shell  =="
+        # pkg --version
+        echo -e "\e[0m"
+      '';
+    };
   };
-
-  # build the same structure for each system
-  #   default systems are ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"]
-  outputs = { nixpkgs, utils, ... }: utils.lib.eachDefaultSystem (system:
-    let
-      # set pkgs for the given architecture, via the `system:` function arg
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      # pkgs.mkShell is a specialized stdenv.mkDerivation that removes some
-      # repetition when using it with nix-shell (or nix develop).
-      devShell = pkgs.mkShell {
-      	name = "{shell_name}";
-        packages = with pkgs; [
-          # list packages for the shell, here
-        ];
-        shellHook = ''
-          echo -e "\e[1;94m == {shell_name} development shell  =="
-          # add information useful to the user, like pkg --version calls.
-          echo -e "\e[0m"
-        '';
-      };
-    }
-  );
 }
