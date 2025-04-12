@@ -12,6 +12,7 @@ FORMULAE=(
   bash
   bat
   eza
+  fd
   fzf
   git
   helix
