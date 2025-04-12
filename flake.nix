@@ -29,6 +29,7 @@
           config.packages = {
             # guis
             chatgpt.enable = true;
+            devenv.enable = true;
             firefox.enable = true;
             google-chrome.enable = true;
             nyxt.enable = true;
@@ -53,19 +54,12 @@
       modules = [
         ./machine/macbook_m.nix
         ./desktop/aqua.nix 
-        # ./packages
-        # {
-        #   config.packages = {
-        #     # guis with brew
-        #     # clis and tuis
-        #     git.enable = true;
-        #     helix.enable = true;
-        #     modern-cli-tools.enable = true;      
-        #     mono-fonts.enable = true;
-        #     nushell.enable = true;
-        #     zsh.enable = true;
-        #   };
-        # }
+        ./packages
+        {
+          config.packages = {
+            devenv.enable = true;
+          };
+        }
       ];
     };
 
@@ -74,19 +68,12 @@
       modules = [
         ./machine/macbook_m.nix 
         ./desktop/aqua.nix
-        # ./packages
-        # {
-        #   config.packages = {
-        #     # guis with brew
-        #     # clis and tuis
-        #     git.enable = true;
-        #     helix.enable = true;
-        #     maven.enable = true;
-        #     modern-cli-tools.enable = true;
-        #     mono-fonts.enable = true;
-        #     zsh.enable = true;
-        #   };
-        # }
+        ./packages
+        {
+          config.packages = {
+            devenv.enable = true;
+          };
+        }
       ];
     };
     

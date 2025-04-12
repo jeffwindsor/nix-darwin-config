@@ -4,6 +4,7 @@
   # enable what you need somewhere else.  This avoids using home-manager
   imports = [
     ./chatgpt.nix 
+    ./devenv.nix 
     ./direnv.nix
     ./firefox.nix
     ./ghostty.nix 
