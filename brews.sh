@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-brew_command="${1:-install}"  # reinstall, info, etc..
 
-
-# install brew if missing
+# bootstap brew
 if ! command -v brew &> /dev/null; then
   /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# CLI and TUI
 FORMULAE=(
   bash
   bat
@@ -26,10 +25,8 @@ FORMULAE=(
   zsh
 )
 
-# Standard GUI Apps
-CASKS=(
+CASK=(
   balenaetcher     # usb iso app 
-  chatgpt
   firefox
   ghostty
   google-chrome
@@ -42,30 +39,42 @@ CASKS=(
 
 # add machine specific packages
 machine=$(networksetup -getcomputername)
-if [[ $machine == "Midnight-Air" ]]; then
-  CASKS=(
-    "${CASKS[@]}"
-    chatgpt
-    iina
-    spotify
-    # sweet-home3d
-  )
+# echo $machine
+
+if [[ $machine == "Midnight Air" ]]; then
+  CASK=(
+      "${CASK[@]}"
+      chatgpt
+      iina
+      spotify
+    )
 fi
 
-[[ $machine == "WKMZTAFD6544" ]]; thenCASKS=(
-  "${CASKS[@]}"
-  intellij-idea
-  maven
-  slack
-)
+if [[ $machine == "WKMZTAFD6544" ]]; then
+  CASK=(
+    "${CASK[@]}"
+    intellij-idea
+    maven
+    slack
+  )
+
+fi
+
+FORMULAE_INSTALLED=($(brew leaves | col))  # leaves only shows top level packages, list shows all installed including dependencies
+FORMULAE_TO_INSTALL=($(comm -23 <(printf "%s\n" "${FORMULAE[@]}" | sort -u) <(printf "%s\n" "${FORMULAE_INSTALLED[@]}" | sort -u)))
+FORMULAE_TO_REMOVE=($(comm -23 <(printf "%s\n" "${FORMULAE_INSTALLED[@]}" | sort -u) <(printf "%s\n" "${FORMULAE[@]}" | sort -u)))
+
+CASK_INSTALLED=($(brew list --cask --full-name | col))
+CASK_TO_INSTALL=($(comm -23 <(printf "%s\n" "${CASK[@]}" | sort -u) <(printf "%s\n" "${CASK_INSTALLED[@]}" | sort -u)))
+CASK_TO_REMOVE=($(comm -23 <(printf "%s\n" "${CASK_INSTALLED[@]}" | sort -u) <(printf "%s\n" "${CASK[@]}" | sort -u)))
 
 
-# install casks
-# echo "\e[94m $machine ==> ${CASKS[@]} \e[0m"
-function install(){
+function brew_command(){
   echo -e "\e[94m==> Brew Install $@ <==\e[0m"
-  brew $brew_command "$@"
+  eval "brew $@"
 }
-
-for c in "${CASKS[@]}"; do install --cask "$c"; done
-for f in "${FORMULAE[@]}"; do install --formulae "$f"; done
+echo "== BREWS =="
+for f in "${FORMULAE_TO_INSTALL[@]}"; do brew_command "install --formulae $f"; done
+for f in "${FORMULAE_TO_REMOVE[@]}"; do brew_command "remove --formulae $f"; done
+for c in "${CASK_TO_INSTALL[@]}"; do brew_command "install --cask $c"; done
+for c in "${CASK_TO_REMOVE[@]}"; do brew_command "remove --cask $c"; done
