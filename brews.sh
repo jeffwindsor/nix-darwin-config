@@ -47,6 +47,7 @@ if [[ $machine == "Midnight Air" ]]; then
       chatgpt
       iina
       spotify
+      transmission
     )
 fi
 
