@@ -52,10 +52,13 @@ if [[ $machine == "Midnight Air" ]]; then
 fi
 
 if [[ $machine == "WKMZTAFD6544" ]]; then
+  FORMULAE=(
+    "${FORMULAE[@]}"
+    maven
+  )
   CASK=(
     "${CASK[@]}"
     intellij-idea
-    maven
     slack
   )
 
