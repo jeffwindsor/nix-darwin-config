@@ -4,11 +4,11 @@
   # Define the inputs to the flake "function"
   inputs = {
     # Nix Modules: https://nixos.org/manual/nixpkgs/unstable/#sec-config-options-reference
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     
     # Nix Modules (macOs): https://daiderd.com/nix-darwin/manual/index.html
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
